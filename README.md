@@ -130,3 +130,30 @@ python manage.py createsuperser
 ```
 python manage.py test
 ```
+
+
+## Data and Action flow
+
+### View
+This is basically a controller that invokes other components 
+and does not contain any business logic inside.  
+Usually it is an `APIView` that only knows about what authentication 
+and permissions classes it should use.
+
+### Service
+This component is responsible for the business logic related stuff 
+and contains some high-level API for the controller(view).  
+Usually it is basic Python class with some `classmethods`.
+If the method is/should not be used outside of the service
+then make sure to mark it as private using `_` in the naming.  
+You should always use [**type annotations**](https://docs.python.org/3/library/typing.html) when defining these methods, 
+so everyone knows how to use them.
+
+### Serializer
+This component is responsible for validating user input and serializing `querysets` into native Python data types.  
+Don't use `save()` method. It will give too much responsibility to this component. The only things it should do
+are defined above. 
+
+### Model
+This is basically a representation of your database table.  
+Thus, it should not contain any business logic here. Sometimes it may have some calculated fields(`@property`).
