@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+      args:
+        - ENV=prod
+    restart: always
+    container_name: challenges
+    image: django
+    depends_on:
+      - postgres
+    environment:
+      - SECRET_KEY=notasecret
+      - DEBUG=true
+      - DJANGO_SETTINGS_MODULE=project.settings.base
+      - ALLOWED_HOSTS=*
+      - POSTGRES_DB=challenges
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+    ports:
+      - "8000:8000"
+  postgres:
+    restart: always
+    container_name: challenges_postgres
+    image: postgres:10.6
+    environment:
+      - POSTGRES_DB=challenges
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    ports:
+      - "5432:5432"

@@ -1,0 +1,4 @@
+-r ./prod.txt
+
+Faker==1.0.0
+factory-boy==2.11.1

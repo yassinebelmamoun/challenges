@@ -1,0 +1,1 @@
+INVALID_INPUT = 'Invalid input data, please try again'
